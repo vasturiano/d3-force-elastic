@@ -4,18 +4,18 @@ export default function(links = []) {
   let nDim,
     nodes = [],
     id = (node => node.index),        // accessor: node unique id
-    length = (link => 30),            // accessor: number
+    distance = (link => 30),            // accessor: number
     elasticity = (link => 0.8);       // accessor: number between 0 and 1
 
   function force(alpha) {
-    for (let i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.distance; i++) {
       const link = links[i],
         dx = link.target.x - link.source.x,
         dy = (link.target.y - link.source.y) || 0,
         dz = (link.target.z - link.source.z) || 0,
-        d = distance(dx, dy, dz);
+        d = calcDist(dx, dy, dz);
 
-      const linkLen = length(link);
+      const linkLen = distance(link);
       if (d <= linkLen) continue; // Elastic not extended, no effect
 
       const strength = alpha * elasticity(link) * (d - linkLen);
@@ -61,8 +61,8 @@ export default function(links = []) {
     return arguments.length ? (id = _, force) : id;
   };
 
-  force.length = function(_) {
-    return arguments.length ? (length = typeof _ === 'function' ? _ : constant(+_), force) : length;
+  force.distance = function(_) {
+    return arguments.length ? (distance = typeof _ === 'function' ? _ : constant(+_), force) : distance;
   };
 
   force.elasticity = function(_) {
@@ -74,6 +74,6 @@ export default function(links = []) {
 
 //
 
-function distance(x, y = 0, z = 0) {
+function calcDist(x, y = 0, z = 0) {
   return Math.sqrt(x*x + y*y + z*z);
 }
