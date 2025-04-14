@@ -1,0 +1,60 @@
+{
+  "name": "d3-force-elastic",
+  "version": "0.1.0",
+  "description": "A Hooke's law spring-like attraction force between node pairs for the d3-force simulation engine.",
+  "keywords": [
+    "d3",
+    "d3-module",
+    "d3-force",
+    "elastic",
+    "spring",
+    "hooke's law",
+    "attraction",
+    "physics",
+    "layout",
+    "graph",
+    "force",
+    "simulation"
+  ],
+  "homepage": "https://github.com/vasturiano/d3-force-elastic",
+  "license": "MIT",
+  "author": {
+    "name": "Vasco Asturiano",
+    "url": "https://github.com/vasturiano"
+  },
+  "type": "module",
+  "jsdelivr": "dist/d3-force-elastic.min.js",
+  "unpkg": "dist/d3-force-elastic.min.js",
+  "main": "dist/d3-force-elastic.mjs",
+  "module": "dist/d3-force-elastic.mjs",
+  "exports": {
+    "umd": "./dist/d3-force-elastic.min.js",
+    "default": "./dist/d3-force-elastic.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vasturiano/d3-force-elastic.git"
+  },
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "dev": "rollup -w -c",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.40.0"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
