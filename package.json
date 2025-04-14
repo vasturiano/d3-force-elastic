@@ -1,6 +1,6 @@
 {
   "name": "d3-force-elastic",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "A Hooke's law spring-like attraction force between node pairs for the d3-force simulation engine.",
   "keywords": [
     "d3",
