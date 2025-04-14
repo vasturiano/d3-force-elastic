@@ -8,7 +8,7 @@ export default function(links = []) {
     elasticity = (link => 0.8);       // accessor: number between 0 and 1
 
   function force(alpha) {
-    for (let i = 0; i < links.distance; i++) {
+    for (let i = 0; i < links.length; i++) {
       const link = links[i],
         dx = link.target.x - link.source.x,
         dy = (link.target.y - link.source.y) || 0,
