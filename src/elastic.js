@@ -3,9 +3,10 @@ import constant from './constant';
 export default function(links = []) {
   let nDim,
     nodes = [],
-    id = (node => node.index),        // accessor: node unique id
-    distance = (link => 30),            // accessor: number
-    elasticity = (link => 0.8);       // accessor: number between 0 and 1
+    id = (node => node.index),         // accessor: node unique id
+    distance = (link => 30),           // accessor: number
+    elasticity = (link => 0.8),        // accessor: number between 0 and 1
+    compressionFactor = (link => 0);   // accessor: number between 0 and 1
 
   function force(alpha) {
     for (let i = 0; i < links.length; i++) {
@@ -16,9 +17,10 @@ export default function(links = []) {
         d = calcDist(dx, dy, dz);
 
       const linkLen = distance(link);
-      if (d <= linkLen) continue; // Elastic not extended, no effect
+      const compFactor = compressionFactor(link);
+      if (!compFactor && d <= linkLen) continue; // Elastic not extended, no effect
 
-      const strength = alpha * elasticity(link) * (d - linkLen);
+      const strength = alpha * elasticity(link) * (d - linkLen) * (d < linkLen ? compFactor : 1);
 
       // Move only one side if opposite node is fixed
       const bias = link.source.fx != null ? 0 : link.target.fx != null ? 1 : 0.5;
@@ -67,6 +69,10 @@ export default function(links = []) {
 
   force.elasticity = function(_) {
     return arguments.length ? (elasticity = typeof _ === 'function' ? _ : constant(+_), force) : elasticity;
+  };
+
+  force.compressionFactor = function(_) {
+    return arguments.length ? (compressionFactor = typeof _ === 'function' ? _ : constant(+_), force) : compressionFactor;
   };
 
   return force;
